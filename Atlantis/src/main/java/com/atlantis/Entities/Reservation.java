@@ -3,6 +3,7 @@ package com.atlantis.Entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,16 +47,16 @@ public class Reservation implements Serializable {
 	
 	// Associations
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name=idPersonne)
+	@JoinColumn(name="idPersonne")
 	Employe employe;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name=idPersonne)
+	@JoinColumn(name="idPersonne")
 	Client client;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name=Assos_Reservation_ChambrejoinColumns = @JoinColumn(name = "idReservation"), inverseJoinColumns = @JoinColumn(name = "idChambre"))
-	Liste<Chambre> listeChambreReserve = new ArrayList<Chambre>();
+	@JoinTable(name="Assos_Reservation_Chambre", joinColumns = @JoinColumn(name = "idReservation"), inverseJoinColumns = @JoinColumn(name = "idChambre"))
+	List<Chambre> listeChambreReserve = new ArrayList<Chambre>();
 
 	
 	// Getters & Setters
@@ -107,11 +108,11 @@ public class Reservation implements Serializable {
 		this.client = client;
 	}
 
-	public Liste<Chambre> getListeChambreReserve() {
+	public List<Chambre> getListeChambreReserve() {
 		return listeChambreReserve;
 	}
 
-	public void setListeChambreReserve(Liste<Chambre> listeChambreReserve) {
+	public void setListeChambreReserve(List<Chambre> listeChambreReserve) {
 		this.listeChambreReserve = listeChambreReserve;
 	}
 	
