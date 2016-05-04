@@ -14,7 +14,7 @@ import com.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND
- * Date : 02/05/2016
+ * Date : 03/05/2016
  * interface : ImplDAOReservation ;
  * package : com.atlantis.Dao ;
  * Version : 1.0 ;
@@ -31,9 +31,10 @@ public class ImplDAOReservation implements InterDAOReservation {
 	private EntityManager em;
 
 	@Override
-	public void creerUneReservation(Reservation reservation, Long idEmploye,
-			Long idClient, Date dateDebut, Date dateFin, String etatReservation) {
+	public Reservation creerUneReservation(Long idEmploye, Long idClient,
+			Date dateDebut, Date dateFin, String etatReservation) {
 		// TODO Auto-generated method stub
+		Reservation reservation = new Reservation();
 		Employe employe = em.find(Employe.class, idEmploye);
 		Client client = em.find(Client.class, idClient);
 		reservation.setEmploye(employe);
@@ -42,6 +43,7 @@ public class ImplDAOReservation implements InterDAOReservation {
 		reservation.setDateFin(dateFin);
 		reservation.setEtatReservation(etatReservation);
 		em.persist(reservation);
+		return reservation;
 
 	}
 
@@ -79,34 +81,17 @@ public class ImplDAOReservation implements InterDAOReservation {
 	}
 
 	@Override
-	public List<Chambre> consulterDisponibiliteDesChambresPlageDates(
+	public List<Chambre> consulterListeChambresOccupeesSurPlageDates(
 			Date dateDebutD, Date dateFinD) {
 		// TODO Auto-generated method stub
-//		Méthode 1 par inner join :
-/*		Query query = em.createQuery(" from Chambre c, "
-				+ " inner join Assos_Reservation_Chambre arc "
-				+ " and arc.idChambre = c.idChambre"
-				+ " inner join Reservation r, "
-				+ " on r.idReservation = arc.idReservation "
-				+ " where r.dateFin < " + dateDebutD + " and r.dateDebut > " + dateFinD 
-				+ " union"
-				+ " from Chambre c "
-				+ " where c.idChambre not in "
-				+ " ( select arc.idChambre from Assos_Reservation_Chambre arc");
-		return null;*/
-		
-//		Méthode 2 qu'avec des Select :
 		Query query = em.createQuery("Select c from Chambre c, "
-				+ " Reservation r, "
+				+ " Reservation r, " 
 				+ " Assos_Reservation_Chambre arc "
 				+ " where r.idReservation = arc.idReservation "
-				+ " and arc.idChambre = c.idChambre "
-				+ " and r.dateFin < " + dateDebutD + " and r.dateDebut > " + dateFinD 
-				+ " union"
-				+ " select c from Chambre c "
-				+ " where c.idChambre not in "
-				+ " ( select arc.idChambre from Assos_Reservation_Chambre arc");
-		return null;
+				+ " and arc.idChambre = c.idChambre " 
+				+ " and ( " + dateDebutD + " > r.dateDebut and " + dateDebutD + " < r.dateFin) "
+				+ " || ( " + dateFinD + " > r.dateDebut and " + dateFinD + " < r.dateFin)");
+		return query.getResultList();
 	}
 
 	@Override
@@ -132,8 +117,10 @@ public class ImplDAOReservation implements InterDAOReservation {
 	public List<Reservation> consulterListeReservationParIdChambre(
 			Long idChambre) {
 		// TODO Auto-generated method stub
-		Query query = em.createQuery("from Reservation r, Assos_Reservation_Chambre arc "
-				+ "where r.idReservation = arc.idReservation and arc.idChambre = " + idChambre);
+		Query query = em
+				.createQuery("from Reservation r, Assos_Reservation_Chambre arc "
+						+ "where r.idReservation = arc.idReservation and arc.idChambre = "
+						+ idChambre);
 		return query.getResultList();
 	}
 
@@ -141,6 +128,13 @@ public class ImplDAOReservation implements InterDAOReservation {
 	public List<Reservation> consulterToutesLesReservations() {
 		// TODO Auto-generated method stub
 		Query query = em.createQuery("from Reservation");
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Chambre> ConsulterToutesLesChambres() {
+		// TODO Auto-generated method stub
+		Query query = em.createQuery("from Chambre");
 		return query.getResultList();
 	}
 

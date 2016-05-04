@@ -12,7 +12,7 @@ import com.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND
- * Date : 02/05/2016
+ * Date : 03/05/2016
  * interface : ImplDAOReservation ;
  * package : com.atlantis.Metier ;
  * Version : 1.0 ;
@@ -36,10 +36,11 @@ public class ImplMetierReservation implements InterMetierReservation {
 	}
 
 	@Override
-	public void creerUneReservation(Reservation reservation, Long idEmploye,
-			Long idClient, Date dateDebut, Date dateFin, String etatReservation) {
+	public Reservation creerUneReservation(Long idEmploye, Long idClient,
+			Date dateDebut, Date dateFin, String etatReservation) {
 		// TODO Auto-generated method stub
-		dao.creerUneReservation(reservation, idEmploye, idClient, dateDebut, dateFin, etatReservation);
+		return dao.creerUneReservation(idEmploye, idClient, dateDebut, dateFin,
+				etatReservation);
 
 	}
 
@@ -72,10 +73,27 @@ public class ImplMetierReservation implements InterMetierReservation {
 	}
 
 	@Override
+	public List<Chambre> consulterListeChambresOccupeesSurPlageDates(
+			Date dateDebutD, Date dateFinD) {
+		// TODO Auto-generated method stub
+		return dao.consulterListeChambresOccupeesSurPlageDates(dateDebutD, dateFinD);
+	}
+
+	@Override
 	public List<Chambre> consulterDisponibiliteDesChambresPlageDates(
 			Date dateDebutD, Date dateFinD) {
 		// TODO Auto-generated method stub
-		return dao.consulterDisponibiliteDesChambresPlageDates(dateDebutD, dateFinD);
+		List<Chambre> listeDeChambresDisponibles = dao.ConsulterToutesLesChambres();
+		List<Chambre> listeChambresOccupees = dao.consulterListeChambresOccupeesSurPlageDates(dateDebutD, dateFinD);
+		for (Chambre cd: listeDeChambresDisponibles) {
+			for (Chambre co : listeChambresOccupees) {
+				if (cd.getIdChambre() == co.getIdChambre()){
+					listeDeChambresDisponibles.remove(cd);
+				}
+			}
+		}
+		
+		return listeDeChambresDisponibles;
 	}
 
 	@Override
@@ -102,6 +120,12 @@ public class ImplMetierReservation implements InterMetierReservation {
 	public List<Reservation> consulterToutesLesReservations() {
 		// TODO Auto-generated method stub
 		return dao.consulterToutesLesReservations();
+	}
+
+	@Override
+	public List<Chambre> ConsulterToutesLesChambres() {
+		// TODO Auto-generated method stub
+		return dao.ConsulterToutesLesChambres();
 	}
 
 }

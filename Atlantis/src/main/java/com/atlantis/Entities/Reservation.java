@@ -37,26 +37,26 @@ public class Reservation implements Serializable {
 	// Attibuts
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long idReservation;
+	private Long idReservation;
 	@Temporal(TemporalType.DATE)
-	Date dateDebut;
+	private Date dateDebut;
 	@Temporal(TemporalType.DATE)
-	Date dateFin;
-	String etatReservation; //(ex : "Réservation confirmée")
+	private Date dateFin;
+	private String etatReservation; //(ex : "Réservation confirmée")
 	
 	
 	// Associations
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idPersonne")
-	Employe employe;
+	@JoinColumn(name="idEmploye")
+	private Employe employe;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idPersonne")
-	Client client;
+	@JoinColumn(name="idClient")
+	private Client client;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="Assos_Reservation_Chambre", joinColumns = @JoinColumn(name = "idReservation"), inverseJoinColumns = @JoinColumn(name = "idChambre"))
-	List<Chambre> listeChambreReserve = new ArrayList<Chambre>();
+	private List<Chambre> listeChambreReserve = new ArrayList<Chambre>();
 
 	
 	// Getters & Setters

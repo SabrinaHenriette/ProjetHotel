@@ -8,7 +8,7 @@ import com.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND
- * Date : 02/05/2016
+ * Date : 03/05/2016
  * interface : InterDAOReservation ;
  * package : com.atlantis.Dao ;
  * Version : 1.0 ;
@@ -22,8 +22,8 @@ import com.atlantis.Entities.Reservation;
 public interface InterDAOReservation {
 
 	// Liste des méthodes liées à la class Reservation :
-	void creerUneReservation(Reservation reservation, Long idEmploye,
-			Long idClient, Date dateDebut, Date dateFin, String etatReservation);
+	Reservation creerUneReservation(Long idEmploye, Long idClient, Date dateDebut,
+			Date dateFin, String etatReservation);
 
 	void ajouterChambreAUneReservation(Long idReservation, Long IdChambre);
 
@@ -33,7 +33,7 @@ public interface InterDAOReservation {
 
 	Reservation consulterUneReservationParIdReservation(Long idReservation);
 
-	List<Chambre> consulterDisponibiliteDesChambresPlageDates(Date dateDebutD,
+	List<Chambre> consulterListeChambresOccupeesSurPlageDates(Date dateDebutD,
 			Date dateFinD);
 
 	List<Reservation> consulterListeReservationParIdClient(Long idCLient);
@@ -43,5 +43,7 @@ public interface InterDAOReservation {
 	List<Reservation> consulterListeReservationParIdChambre(Long idChambre);
 
 	List<Reservation> consulterToutesLesReservations();
+	
+	List<Chambre> ConsulterToutesLesChambres();
 
 }
