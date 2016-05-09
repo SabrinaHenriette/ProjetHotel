@@ -35,7 +35,7 @@ public class Chambre implements Serializable {
 	private Double prix;
 	private String description;
 	
-	@ManyToMany(fetch=FetchType.LAZY, mappedBy="listeChambreReserve")
+	@ManyToMany(/*fetch=FetchType.LAZY, */mappedBy="listeChambreReserve")
 	private List<Reservation> listeReservationParChambre = new ArrayList<Reservation>();
 	
 	

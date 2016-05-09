@@ -39,7 +39,7 @@ public interface InterMetierReservation {
 	List<Chambre> consulterDisponibiliteDesChambresPlageDates(Date dateDebutD,
 			Date dateFinD); //Présent uniquement dans le métier
 
-	List<Reservation> consulterListeReservationParIdClient(Long idCLient);
+	List<Reservation> consulterListeReservationParIdClient(Long idClient);
 
 	List<Reservation> consulterListeReservationParIdEmploye(Long idEmploye);
 

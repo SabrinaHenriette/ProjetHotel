@@ -36,7 +36,7 @@ public interface InterDAOReservation {
 	List<Chambre> consulterListeChambresOccupeesSurPlageDates(Date dateDebutD,
 			Date dateFinD);
 
-	List<Reservation> consulterListeReservationParIdClient(Long idCLient);
+	List<Reservation> consulterListeReservationParIdClient(Long idClient);
 
 	List<Reservation> consulterListeReservationParIdEmploye(Long idEmploye);
 

@@ -1,9 +1,11 @@
 package com.atlantis.Metier;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.type.DbTimestampType;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.atlantis.Dao.InterDAOReservation;
@@ -83,7 +85,7 @@ public class ImplMetierReservation implements InterMetierReservation {
 	public List<Chambre> consulterDisponibiliteDesChambresPlageDates(
 			Date dateDebutD, Date dateFinD) {
 		// TODO Auto-generated method stub
-		List<Chambre> listeDeChambresDisponibles = dao.ConsulterToutesLesChambres();
+		/*List<Chambre> listeDeChambresDisponibles = dao.ConsulterToutesLesChambres();
 		List<Chambre> listeChambresOccupees = dao.consulterListeChambresOccupeesSurPlageDates(dateDebutD, dateFinD);
 		for (Chambre cd: listeDeChambresDisponibles) {
 			for (Chambre co : listeChambresOccupees) {
@@ -91,15 +93,32 @@ public class ImplMetierReservation implements InterMetierReservation {
 					listeDeChambresDisponibles.remove(cd);
 				}
 			}
-		}
+		}*/
 		
+		List<Chambre> listeDeChambresDisponibles = new ArrayList<Chambre>();
+		for (Chambre c : dao.ConsulterToutesLesChambres()) {
+			boolean b = true;
+			for (Reservation r : dao.consulterListeReservationParIdChambre(c
+					.getIdChambre())) {
+				Long dDD = dateDebutD.getTime();
+				Long dFD = dateFinD.getTime();
+				Long dDT = r.getDateDebut().getTime();
+				Long dFN = r.getDateFin().getTime();
+				if ((dDD > dDT && dDD < dFN) || (dFD > dDT && dFD < dFN)) {
+					b = false;
+				}
+			}
+			if (b) {
+				listeDeChambresDisponibles.add(c);
+			}
+		}
 		return listeDeChambresDisponibles;
 	}
 
 	@Override
-	public List<Reservation> consulterListeReservationParIdClient(Long idCLient) {
+	public List<Reservation> consulterListeReservationParIdClient(Long idClient) {
 		// TODO Auto-generated method stub
-		return dao.consulterListeReservationParIdClient(idCLient);
+		return dao.consulterListeReservationParIdClient(idClient);
 	}
 
 	@Override

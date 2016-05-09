@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import com.atlantis.Entities.Chambre;
 import com.atlantis.Entities.Client;
 import com.atlantis.Entities.Employe;
+import com.atlantis.Entities.Personne;
 import com.atlantis.Entities.Reservation;
 
 /*
@@ -53,7 +54,7 @@ public class ImplDAOReservation implements InterDAOReservation {
 		Chambre chambre = em.find(Chambre.class, IdChambre);
 		Reservation reservation = em.find(Reservation.class, idReservation);
 		reservation.getListeChambreReserve().add(chambre);
-		em.merge(chambre);
+		em.merge(reservation);
 
 	}
 
@@ -84,22 +85,26 @@ public class ImplDAOReservation implements InterDAOReservation {
 	public List<Chambre> consulterListeChambresOccupeesSurPlageDates(
 			Date dateDebutD, Date dateFinD) {
 		// TODO Auto-generated method stub
-		Query query = em.createQuery("Select c from Chambre c, "
-				+ " Reservation r, " 
-				+ " Assos_Reservation_Chambre arc "
+/*		Query query = em.createQuery("Select c from Chambre c, "
+				+ " Reservation r, " + " Assos_Reservation_Chambre arc "
 				+ " where r.idReservation = arc.idReservation "
-				+ " and arc.idChambre = c.idChambre " 
-				+ " and ( " + dateDebutD + " > r.dateDebut and " + dateDebutD + " < r.dateFin) "
-				+ " || ( " + dateFinD + " > r.dateDebut and " + dateFinD + " < r.dateFin)");
+				+ " and arc.idChambre = c.idChambre " + " and ( " + dateDebutD
+				+ " > r.dateDebut and " + dateDebutD + " < r.dateFin) "
+				+ " || ( " + dateFinD + " > r.dateDebut and " + dateFinD
+				+ " < r.dateFin)");*/
+		Query query = em.createQuery("Select r.listeChambreReserve from Reservation r "
+				+ " where (" + dateDebutD + " > r.dateDebut and " + dateDebutD + " < r.dateFin)) " 
+				+ " || (( " + dateFinD + " > r.dateDebut and " + dateFinD + " < r.dateFin))") ;
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Reservation> consulterListeReservationParIdClient(Long idCLient) {
+	public List<Reservation> consulterListeReservationParIdClient(Long idClient) {
 		// TODO Auto-generated method stub
-		Client client = em.find(Client.class, idCLient);
-		Query query = em.createQuery("from Reservation r where r.client = "
-				+ client);
+		// Personne client = em.find(Client.class, idClient);
+		Query query = em
+				.createQuery("from Reservation r where r.client.idPersonne = "
+						+ idClient);
 		return query.getResultList();
 	}
 
@@ -107,9 +112,10 @@ public class ImplDAOReservation implements InterDAOReservation {
 	public List<Reservation> consulterListeReservationParIdEmploye(
 			Long idEmploye) {
 		// TODO Auto-generated method stub
-		Employe employe = em.find(Employe.class, idEmploye);
-		Query query = em.createQuery("from Reservation r where r.employe = "
-				+ employe);
+		// Employe employe = em.find(Employe.class, idEmploye);
+		Query query = em
+				.createQuery("from Reservation r where r.employe.idPersonne = "
+						+ idEmploye);
 		return query.getResultList();
 	}
 
@@ -117,9 +123,14 @@ public class ImplDAOReservation implements InterDAOReservation {
 	public List<Reservation> consulterListeReservationParIdChambre(
 			Long idChambre) {
 		// TODO Auto-generated method stub
+		
+		/* Query query = em .createQuery(
+		  "select r from Reservation r, Assos_Reservation_Chambre arc " +
+		  "where r.idReservation = arc.idReservation and arc.idChambre = " +
+		  idChambre);*/
+		 
 		Query query = em
-				.createQuery("from Reservation r, Assos_Reservation_Chambre arc "
-						+ "where r.idReservation = arc.idReservation and arc.idChambre = "
+				.createQuery("select c.listeReservationParChambre from Chambre c where c.idChambre = "
 						+ idChambre);
 		return query.getResultList();
 	}

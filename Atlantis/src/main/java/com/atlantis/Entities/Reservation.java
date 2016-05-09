@@ -29,36 +29,33 @@ import javax.persistence.TemporalType;
  * association : Employe, Client, List<Chambre> ;
  * */
 
-
 @Entity
 public class Reservation implements Serializable {
 
-	
 	// Attibuts
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idReservation;
 	@Temporal(TemporalType.DATE)
 	private Date dateDebut;
 	@Temporal(TemporalType.DATE)
 	private Date dateFin;
-	private String etatReservation; //(ex : "Réservation confirmée")
-	
-	
+	private String etatReservation; // (ex : "Réservation confirmée")
+
 	// Associations
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idEmploye")
+	@ManyToOne//(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idEmploye")
 	private Employe employe;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idClient")
+
+	@ManyToOne//(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idClient")
 	private Client client;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="Assos_Reservation_Chambre", joinColumns = @JoinColumn(name = "idReservation"), inverseJoinColumns = @JoinColumn(name = "idChambre"))
+
+	@ManyToMany//(fetch = FetchType.LAZY)
+	@JoinTable(name = "Assos_Reservation_Chambre", joinColumns = @JoinColumn(name = "idReservation"), 
+	inverseJoinColumns = @JoinColumn(name = "idChambre"))
 	private List<Chambre> listeChambreReserve = new ArrayList<Chambre>();
 
-	
 	// Getters & Setters
 	public Long getIdReservation() {
 		return idReservation;
@@ -115,8 +112,7 @@ public class Reservation implements Serializable {
 	public void setListeChambreReserve(List<Chambre> listeChambreReserve) {
 		this.listeChambreReserve = listeChambreReserve;
 	}
-	
-	
+
 	// Constructeurs
 	public Reservation() {
 		// TODO Auto-generated constructor stub
@@ -128,8 +124,5 @@ public class Reservation implements Serializable {
 		this.dateFin = dateFin;
 		this.etatReservation = etatReservation;
 	}
-	
-	
-	
 
 }
