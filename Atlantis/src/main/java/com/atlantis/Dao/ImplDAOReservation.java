@@ -15,7 +15,7 @@ import com.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND
- * Date : 03/05/2016
+ * Date : 03/05/2016 
  * interface : ImplDAOReservation ;
  * package : com.atlantis.Dao ;
  * Version : 1.0 ;
@@ -103,7 +103,7 @@ public class ImplDAOReservation implements InterDAOReservation {
 		// TODO Auto-generated method stub
 		// Personne client = em.find(Client.class, idClient);
 		Query query = em
-				.createQuery("from Reservation r where r.client.idPersonne = "
+				.createQuery("from Reservation r where r.client = "
 						+ idClient);
 		return query.getResultList();
 	}
@@ -114,7 +114,7 @@ public class ImplDAOReservation implements InterDAOReservation {
 		// TODO Auto-generated method stub
 		// Employe employe = em.find(Employe.class, idEmploye);
 		Query query = em
-				.createQuery("from Reservation r where r.employe.idPersonne = "
+				.createQuery("from Reservation r where r.employe = "
 						+ idEmploye);
 		return query.getResultList();
 	}

@@ -13,7 +13,7 @@ import com.atlantis.Entities.Chambre;
 import com.atlantis.Entities.Reservation;
 
 /*
- * Auteur : Sylvain VROLAND
+ * Auteur : Sylvain VROLAND 
  * Date : 03/05/2016
  * interface : ImplDAOReservation ;
  * package : com.atlantis.Metier ;
@@ -96,15 +96,18 @@ public class ImplMetierReservation implements InterMetierReservation {
 		}*/
 		
 		List<Chambre> listeDeChambresDisponibles = new ArrayList<Chambre>();
+		Long dDD = dateDebutD.getTime();
+		Long dFD = dateFinD.getTime();
 		for (Chambre c : dao.ConsulterToutesLesChambres()) {
 			boolean b = true;
 			for (Reservation r : dao.consulterListeReservationParIdChambre(c
 					.getIdChambre())) {
-				Long dDD = dateDebutD.getTime();
-				Long dFD = dateFinD.getTime();
 				Long dDT = r.getDateDebut().getTime();
 				Long dFN = r.getDateFin().getTime();
-				if ((dDD > dDT && dDD < dFN) || (dFD > dDT && dFD < dFN)) {
+				if    ((dDD > dDT && dDD < dFN)  //dateDebutD dans une réservation
+					|| (dFD > dDT && dFD < dFN)  //dateFinD dans une réservation
+					|| (dDD < dDT && dFD > dFN)) //Réservation inclue entre dateDebutD et dateFinD
+				{
 					b = false;
 				}
 			}

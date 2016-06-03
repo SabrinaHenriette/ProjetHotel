@@ -129,7 +129,7 @@ public class TestMetierReservation {
 		assertNotNull(metierReservation
 				.consulterDisponibiliteDesChambresPlageDates(
 						sdf.parse("14/06/2016"), sdf.parse("13/07/2016")));
-	}
+	}// Test OK
 
 	@Test
 	public void testConsulterListeReservationParIdClient() {
@@ -141,13 +141,13 @@ public class TestMetierReservation {
 	public void testConsulterListeReservationParIdEmploye() {
 		assertNotNull(metierReservation.consulterListeReservationParIdEmploye(
 				15L).size());
-	}// KO
+	}// Test OK
 
 	@Test
 	public void testConsulterListeReservationParIdChambre() {
 		assertNotNull(metierReservation.consulterListeReservationParIdChambre(
 				101L).size());
-	} // KO
+	}// Test OK
 
 	@Test
 	public void testConsulterToutesLesReservations() {

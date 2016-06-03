@@ -16,6 +16,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /*
  * Auteur : Sylvain VROLAND
@@ -36,17 +42,23 @@ public class Reservation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idReservation;
-	@Temporal(TemporalType.DATE)
+	@NotNull
+//	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date dateDebut;
-	@Temporal(TemporalType.DATE)
+	@NotNull
+//	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date dateFin;
 	private String etatReservation; // (ex : "Réservation confirmée")
 
 	// Associations
+	@NotNull
 	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idEmploye")
 	private Employe employe;
-
+	
+	@NotNull
 	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idClient")
 	private Client client;
@@ -57,6 +69,7 @@ public class Reservation implements Serializable {
 	private List<Chambre> listeChambreReserve = new ArrayList<Chambre>();
 
 	// Getters & Setters
+
 	public Long getIdReservation() {
 		return idReservation;
 	}
@@ -84,7 +97,7 @@ public class Reservation implements Serializable {
 	public String getEtatReservation() {
 		return etatReservation;
 	}
-
+	
 	public void setEtatReservation(String etatReservation) {
 		this.etatReservation = etatReservation;
 	}
@@ -96,7 +109,7 @@ public class Reservation implements Serializable {
 	public void setEmploye(Employe employe) {
 		this.employe = employe;
 	}
-
+	
 	public Client getClient() {
 		return client;
 	}
@@ -105,10 +118,11 @@ public class Reservation implements Serializable {
 		this.client = client;
 	}
 
+	@JsonIgnore
 	public List<Chambre> getListeChambreReserve() {
 		return listeChambreReserve;
 	}
-
+    @JsonSetter
 	public void setListeChambreReserve(List<Chambre> listeChambreReserve) {
 		this.listeChambreReserve = listeChambreReserve;
 	}
