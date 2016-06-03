@@ -1,4 +1,4 @@
-package com.atlantis.Dao;
+package com.atlantis.atlantis.Dao;
 
 import java.util.Date;
 import java.util.List;
@@ -7,11 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.atlantis.Entities.Chambre;
-import com.atlantis.Entities.Client;
-import com.atlantis.Entities.Employe;
-import com.atlantis.Entities.Personne;
-import com.atlantis.Entities.Reservation;
+import com.atlantis.atlantis.Entities.Chambre;
+import com.atlantis.atlantis.Entities.Client;
+import com.atlantis.atlantis.Entities.Employe;
+import com.atlantis.atlantis.Entities.Personne;
+import com.atlantis.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND

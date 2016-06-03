@@ -1,25 +1,25 @@
-package com.atlantis.Metier;
+package com.atlantis.atlantis.Dao;
 
 import java.util.Date;
 import java.util.List;
 
-import com.atlantis.Entities.Chambre;
-import com.atlantis.Entities.Reservation;
+import com.atlantis.atlantis.Entities.Chambre;
+import com.atlantis.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND
  * Date : 03/05/2016
  * interface : InterDAOReservation ;
- * package : com.atlantis.Metier ;
+ * package : com.atlantis.Dao ;
  * Version : 1.0 ;
  * ref-uml : / ;
  * sprint : 1 ;
  * ref-userStories : unknown ;
- * Implémentation liée : ImplMetierReservation ;
+ * Implémentation liée : ImplDAOReservation ;
  * Class concernée : Reservation
  * */
 
-public interface InterMetierReservation {
+public interface InterDAOReservation {
 
 	// Liste des méthodes liées à la class Reservation :
 	Reservation creerUneReservation(Long idEmploye, Long idClient, Date dateDebut,
@@ -32,12 +32,9 @@ public interface InterMetierReservation {
 	void supprimerUneReservation(Long idReservation);
 
 	Reservation consulterUneReservationParIdReservation(Long idReservation);
-	
+
 	List<Chambre> consulterListeChambresOccupeesSurPlageDates(Date dateDebutD,
 			Date dateFinD);
-
-	List<Chambre> consulterDisponibiliteDesChambresPlageDates(Date dateDebutD,
-			Date dateFinD); //Présent uniquement dans le métier
 
 	List<Reservation> consulterListeReservationParIdClient(Long idClient);
 
@@ -47,6 +44,6 @@ public interface InterMetierReservation {
 
 	List<Reservation> consulterToutesLesReservations();
 	
-	List<Chambre> ConsulterToutesLesChambres() ;
+	List<Chambre> ConsulterToutesLesChambres();
 
 }

@@ -1,4 +1,4 @@
-package com.atlantis.Entities;
+package com.atlantis.atlantis.Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;

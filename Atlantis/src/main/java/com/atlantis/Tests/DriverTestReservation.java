@@ -2,11 +2,11 @@ package com.atlantis.Tests;
 
 import java.util.List;
 
-import com.atlantis.Dao.ImplDAOReservation;
-import com.atlantis.Dao.InterDAOReservation;
-import com.atlantis.Entities.Reservation;
-import com.atlantis.Metier.ImplMetierReservation;
-import com.atlantis.Metier.InterMetierReservation;
+import com.atlantis.atlantis.Dao.ImplDAOReservation;
+import com.atlantis.atlantis.Dao.InterDAOReservation;
+import com.atlantis.atlantis.Entities.Reservation;
+import com.atlantis.atlantis.Metier.ImplMetierReservation;
+import com.atlantis.atlantis.Metier.InterMetierReservation;
 
 public class DriverTestReservation {
 

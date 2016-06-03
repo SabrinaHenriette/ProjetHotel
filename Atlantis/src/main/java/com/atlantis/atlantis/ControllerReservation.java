@@ -1,4 +1,4 @@
-package com.atlantis.atlantis;
+package com.atlantis.atlantis; 
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.atlantis.Entities.Reservation;
-import com.atlantis.Metier.InterMetierReservation;
+import com.atlantis.atlantis.Entities.Reservation;
+import com.atlantis.atlantis.Metier.InterMetierReservation;
 
 @Controller
 public class ControllerReservation {

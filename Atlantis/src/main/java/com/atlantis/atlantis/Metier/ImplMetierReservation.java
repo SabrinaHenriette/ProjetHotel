@@ -1,4 +1,4 @@
-package com.atlantis.Metier;
+package com.atlantis.atlantis.Metier;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.type.DbTimestampType;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.atlantis.Dao.InterDAOReservation;
-import com.atlantis.Entities.Chambre;
-import com.atlantis.Entities.Reservation;
+import com.atlantis.atlantis.Dao.InterDAOReservation;
+import com.atlantis.atlantis.Entities.Chambre;
+import com.atlantis.atlantis.Entities.Reservation;
 
 /*
  * Auteur : Sylvain VROLAND 

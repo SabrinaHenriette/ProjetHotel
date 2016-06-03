@@ -10,14 +10,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.atlantis.Entities.Chambre;
-import com.atlantis.Entities.Client;
-import com.atlantis.Entities.Employe;
-import com.atlantis.Entities.Reservation;
-import com.atlantis.Metier.InterMetierChambre;
-import com.atlantis.Metier.InterMetierClient;
-import com.atlantis.Metier.InterMetierEmploye;
-import com.atlantis.Metier.InterMetierReservation;
+import com.atlantis.atlantis.Entities.Chambre;
+import com.atlantis.atlantis.Entities.Client;
+import com.atlantis.atlantis.Entities.Employe;
+import com.atlantis.atlantis.Entities.Reservation;
+import com.atlantis.atlantis.Metier.InterMetierChambre;
+import com.atlantis.atlantis.Metier.InterMetierClient;
+import com.atlantis.atlantis.Metier.InterMetierEmploye;
+import com.atlantis.atlantis.Metier.InterMetierReservation;
 
 /*
  * Auteur : Sylvain VROLAND
